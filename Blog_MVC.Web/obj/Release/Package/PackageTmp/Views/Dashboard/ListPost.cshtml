@@ -1,0 +1,67 @@
+﻿
+@{
+	ViewBag.Title = "ListPost";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model List<Blog_MVC.Entity.Models.Post>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Operation</th>
+								<th>Title</th>
+								<th>Post Date</th>                             
+								
+							</tr>
+						</thead>
+						<tbody>
+							@{
+								foreach (var item in Model)
+								{
+									<tr class="@(item.IsDeleted == true ? "danger" : "default")">
+										<td width="20%">
+											<a class="btn btn-info btn-circle"
+											   disabled="@(item.IsDeleted == true ? true : false)"
+											   href="/Dashboard/AddPost/@item.PostID">
+												<i class="fa fa-pencil "></i>
+											</a>
+											@{
+												if (!item.IsDeleted)
+												{
+													<a class="btn btn-danger btn-circle"
+													   href="/Dashboard/DeletePost/@item.PostID">														
+														<i class="fa fa-minus"></i>
+													</a>
+												}
+												else
+												{
+													<a class="btn btn-success btn-circle"
+													   href="/Dashboard/AddPostBack/@item.PostID">														
+														<i class="fa fa-plus"></i>
+													</a>
+												}
+											}
+										</td>
+										<td>@item.Title</td>
+										<td>@item.PostDate</td>
+										
+									</tr>
+								}
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+

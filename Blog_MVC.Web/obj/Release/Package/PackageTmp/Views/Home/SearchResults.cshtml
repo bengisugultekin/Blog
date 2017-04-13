@@ -1,0 +1,58 @@
+﻿@using PagedList;
+@using PagedList.Mvc;,
+
+@model IPagedList<Blog_MVC.Entity.Models.Post>
+
+@{
+    ViewBag.Title = "SearchResults";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/CSS/Site.css" rel="stylesheet" />
+
+<header class="intro-header" style="background-image: url('/Images/makine.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>Search</h1>
+                    <hr class="small">
+                    <span class="subheading">@ViewBag.Subheading</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            @{
+                foreach (var item in Model)
+                {
+                    <div class="post-preview">
+                        <a href="/Home/PostDetail/@item.PostID">
+                            <h2 class="post-title">
+                                @item.Title
+                            </h2>                            
+                        </a>
+                        <p class="post-meta">Posted by <a href="/Home/About">Bengisu Gültekin</a> @item.PostDate.ToLongDateString()</p> 
+                    </div>
+                    <hr>
+                }
+            }
+
+            <!-- Pager -->
+            <ul class="pager">
+                <li class="next">
+                    @Html.PagedListPager(Model, page => Url.Action("SearchResults", new { page }))
+                </li>
+            </ul>      
+
+        </div>
+    </div>
+</div>
+<hr>
+
+
